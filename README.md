@@ -1,18 +1,17 @@
 # EG-MVSNet
 
 
+## ⚙ Setup
 
-## `⚙ Setup`
+#### 1. Recommended environment
 
-#### `1. Recommended environment`
+- PyTorch 1.12
+- Python 3.8
 
-- `PyTorch 1.12`
-- `Python 3.8`
-
-#### `2. DTU Dataset`
+#### 2. DTU Dataset
 
 **Training Data**. We adopt the full resolution ground-truth depth provided in CasMVSNet or MVSNet. Download [DTU training data](https://drive.google.com/file/d/1eDjh-_bxKKnEuz5h-HXS7EDJn59clx6V/view) and [Depth raw](https://virutalbuy-public.oss-cn-hangzhou.aliyuncs.com/share/cascade-stereo/CasMVSNet/dtu_data/dtu_train_hr/Depths_raw.zip). 
-Unzip them and put the Depth_raw to dtu_training folder. The structure is just like:
+Unzip them and put the `Depth_raw` to `dtu_training` folder. The structure is just like:
 
 ```
 dtu_training                          
@@ -22,7 +21,7 @@ dtu_training
        └── Rectified
 ```
 
-`**Testing Data**. Download [DTU testing data](https://drive.google.com/file/d/135oKPefcPTsdtLRzoDAQtPpHuoIrpRI_/view) and unzip it. The structure is just like:`
+**Testing Data**. Download [DTU testing data](https://drive.google.com/file/d/135oKPefcPTsdtLRzoDAQtPpHuoIrpRI_/view) and unzip it. The structure is just like:
 
 ```
 dtu_testing                          
@@ -32,11 +31,11 @@ dtu_testing
        ├── ...
 ```
 
-#### `3. BlendedMVS Dataset`
+#### 3. BlendedMVS Dataset
 
-`**Training Data** and **Validation Data**. Download [BlendedMVS](https://drive.google.com/file/d/1ilxls-VJNvJnB7IaFj7P0ehMPr7ikRCb/view) and` 
-`unzip it. And we only adopt` 
-`BlendedMVS for finetuning and not testing on it. The structure is just like:`
+**Training Data** and **Validation Data**. Download [BlendedMVS](https://drive.google.com/file/d/1ilxls-VJNvJnB7IaFj7P0ehMPr7ikRCb/view) and 
+unzip it. And we only adopt 
+BlendedMVS for finetuning and not testing on it. The structure is just like:
 
 ```
 blendedmvs                          
@@ -47,12 +46,12 @@ blendedmvs
        ├── ...
 ```
 
-#### `4. Tanks and Temples Dataset`
+#### 4. Tanks and Temples Dataset
 
-`**Testing Data**. Download [Tanks and Temples](https://drive.google.com/file/d/1YArOJaX9WVLJh4757uE8AEREYkgszrCo/view) and` 
-`unzip it. Here, we adopt the camera parameters of short depth range version (Included in your download), therefore, you should` 
-`replace the cams folder in intermediate folder with the short depth range version manually. The` 
-`structure is just like:`
+**Testing Data**. Download [Tanks and Temples](https://drive.google.com/file/d/1YArOJaX9WVLJh4757uE8AEREYkgszrCo/view) and 
+unzip it. Here, we adopt the camera parameters of short depth range version (Included in your download), therefore, you should 
+replace the `cams` folder in `intermediate` folder with the short depth range version manually. The 
+structure is just like:
 
 ```
 tanksandtemples                          
@@ -64,37 +63,12 @@ tanksandtemples
            ├── ...          
 ```
 
+## 📊 Testing
 
+#### 1. DTU testing
 
-## `⏳ Training`
-
-#### `1. DTU training`
-
-`To train the model from scratch on DTU, specify the datapath and log_dir` 
-`in ./scripts/train.sh first` 
-`and then run:`
-
-```
-bash ./scripts/train.sh
-```
-
-#### `2. BlendedMVS fine-tuning`
-
-`To fine-tune the model on BlendedMVS, you need specify datapath, log_dir and`
-`resume in ./scripts/blendedmvs_finetune.sh first, then run:`
-
-```
-bash ./scripts/blendedmvs_finetune.sh
-```
-
-
-
-## `📊 Testing`
-
-#### `1. DTU testing`
-
-`**Fusibile installation**. Since we adopt Gipuma to filter and fuse the point on DTU dataset, you need to install` 
-`Fusibile first. Download [fusible](https://github.com/YoYo000/fusibile) to <your fusibile path> and execute the following commands:`
+**Fusibile installation**. Since we adopt Gipuma to filter and fuse the point on DTU dataset, you need to install 
+Fusibile first. Download [fusible](https://github.com/YoYo000/fusibile) to `<your fusibile path>` and execute the following commands:
 
 ```
 cd <your fusibile path>
@@ -102,11 +76,9 @@ cmake .
 make
 ```
 
-`If nothing goes wrong, you will get an executable named fusable. And most of the errors are caused by mismatched GPU computing power.`
-
-`**Point generation**. To recreate the results from our paper, you need to specify the datapath to` 
-`<your dtu_testing path>, outdir to <your output save path>, resume` 
- `to <your model path>, and fusibile_exe_path to <your fusibile path>/fusibile in shell file ./script/test.sh first and then run:`
+**Point generation**. To recreate the results from our paper, you need to specify the `datapath` to 
+`<your dtu_testing path>`, `outdir` to `<your output save path>`, `resume` 
+ to `<your model path>`, and `fusibile_exe_path` to `<your fusibile path>/fusibile` in shell file `./script/test.sh` first and then run:
 
 ```
 bash ./scripts/test.sh
@@ -114,10 +86,10 @@ bash ./scripts/test.sh
 
 
 
-#### `2. Tanks and Temples testing`
+#### 2. Tanks and Temples testing
 
-`**Point generation**. Similarly, you need specify the datapath, outdir and resume in shell file` 
-`./scripts/test_tnt.sh, and then run:`
+**Point generation**. Similarly, you need specify the `datapath`, `outdir` and `resume` in shell file 
+`./scripts/test_tnt.sh`, and then run:
 
 ```
 bash ./scripts/test_tnt.sh
@@ -125,7 +97,28 @@ bash ./scripts/test_tnt.sh
 
 
 
-## `👩‍ Acknowledgements`
+## ⏳ Training
 
-`Thanks to [MVSNet](https://github.com/YoYo000/MVSNet), [MVSNet_pytorch](https://github.com/xy-guo/MVSNet_pytorch) and [CasMVSNet](https://github.com/alibaba/cascade-stereo/tree/master/CasMVSNet).`
+#### 1. DTU training
+
+To train the model from scratch on DTU, specify the `datapath` and `log_dir` 
+in `./scripts/train.sh` first 
+and then run:
+
+```
+bash ./scripts/train.sh
+```
+
+
+
+#### 2. BlendedMVS fine-tuning
+
+To fine-tune the model on BlendedMVS, you need specify `datapath`, `log_dir` and
+`resume` in `./scripts/blendedmvs_finetune.sh` first, then run:
+
+```
+bash ./scripts/blendedmvs_finetune.sh
+```
+
+
 
