@@ -1,4 +1,4 @@
-# EG-MVSNet
+# DA-MVSNet
 
 
 ## ⚙ Setup
